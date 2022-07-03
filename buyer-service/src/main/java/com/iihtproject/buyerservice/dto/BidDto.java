@@ -49,5 +49,5 @@ public class BidDto {
     private String productId;
 
     @NotNull
-    private Long bidAmount;
+    private Double bidAmount;
 }

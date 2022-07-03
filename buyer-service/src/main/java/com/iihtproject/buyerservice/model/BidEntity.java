@@ -40,5 +40,5 @@ public class BidEntity {
     private String productId;
 
     @Field
-    private Long bidamount;
+    private Double bidAmount;
 }
