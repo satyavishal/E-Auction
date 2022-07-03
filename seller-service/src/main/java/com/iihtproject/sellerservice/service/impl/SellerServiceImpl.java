@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 @Service
 public class SellerServiceImpl implements SellerService {
 
@@ -28,7 +30,7 @@ public class SellerServiceImpl implements SellerService {
     }
 
     @Override
-    public void deleteProduct(String productId) {
+    public boolean deleteProduct(String productId) {
         Optional<ProductEntity> productEntity = sellerRepository.findById(productId);
         if (productEntity.isEmpty()) {
             throw new CustomException("Given product id is unavailable");
@@ -46,5 +48,49 @@ public class SellerServiceImpl implements SellerService {
 //            throw new InvalidInputException("At least one Bid has been placed on the product");
 //        }
         sellerRepository.deleteById(productId);
+        
+        return true;
     }
+
+	@Override
+	public ProductResponse showBids(@Valid String id) {
+        Optional<ProductEntity> productEntity = sellerRepository.findById(id);
+        if (productEntity.isEmpty()) {
+            throw new CustomException("Given product id is unavailable");
+        }
+        
+        ProductResponse response = new ProductResponse();
+        ProductEntity entity = productEntity.get();
+        response.setBidEndDate(entity.getBidEndDate());
+        response.setCategory(entity.getCategory());
+        response.setDetailedDescription(entity.getDetailedDescription());
+        response.setId(entity.getId());
+        response.setProductName(entity.getProductName());
+        response.setSellerAddress(entity.getSellerAddress());
+        response.setSellerCity(entity.getSellerCity());
+        response.setSellerEmail(entity.getSellerEmail());
+        response.setSellerFirstName(entity.getSellerFirstName());
+        response.setSellerLastName(entity.getSellerLastName());
+        response.setSellerPhone(entity.getSellerPhone());
+        response.setSellerPinCode(entity.getSellerPinCode());
+        response.setSellerState(entity.getSellerState());
+        response.setShortDescription(entity.getShortDescription());
+        response.setStartingPrice(entity.getStartingPrice());
+        
+        
+        //Add List of Bids 
+        
+        return  response;
+	}
+
+	@Override
+	public boolean findProductByIdAndBidEndDate(@Valid String id, Date date) {
+		Optional<ProductEntity> productEntity = sellerRepository.findByIdAndBidEndDateLessThan(id,date);
+		
+		 if (productEntity.isEmpty()) {
+	            throw new CustomException("Given product id is unavailable");
+	        }
+	        
+		return true;
+	}
 }
