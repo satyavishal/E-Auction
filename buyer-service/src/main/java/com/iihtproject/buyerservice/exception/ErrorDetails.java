@@ -1,4 +1,4 @@
-package com.iihtproject.sellerservice.exception;
+package com.iihtproject.buyerservice.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

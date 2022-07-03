@@ -1,0 +1,12 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: SELLER-SERVICE
+          uri: lb://SELLER-SERVICE
+          predicates:
+            - Path=/product/**
+        - id: BUYER-SERVICE
+          uri: lb://BUYER-SERVICE
+          predicates:
+            - Path=/buyer/**
