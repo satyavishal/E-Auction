@@ -1,6 +1,7 @@
 package com.iihtproject.buyerservice.service.impl;
 
 import com.iihtproject.buyerservice.dto.BidDto;
+import com.iihtproject.buyerservice.exception.customException.CustomException;
 import com.iihtproject.buyerservice.model.BidEntity;
 import com.iihtproject.buyerservice.repository.BuyerRepository;
 import com.iihtproject.buyerservice.response.BidResponse;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BuyerServiceImpl implements BuyerService {
@@ -21,6 +23,10 @@ public class BuyerServiceImpl implements BuyerService {
     BuyerRepository buyerRepository;
     @Override
     public BidResponse placeBid(BidDto bidDto) {
+        Optional<BidEntity> optionalBidEntity= buyerRepository.findByBuyerEmail(bidDto.getBuyerEmail());
+        if(optionalBidEntity.isPresent()){
+            throw new CustomException("A Buyer has already place the Bid with Email-ID: "+bidDto.getBuyerEmail());
+        }
         BidEntity bidEntity = new BidEntity();
         BeanUtils.copyProperties(bidDto,bidEntity);
         BidResponse bidResponse = new BidResponse();
