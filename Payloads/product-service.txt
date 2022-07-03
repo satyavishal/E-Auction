@@ -1,0 +1,12 @@
+Endpoints:
+1. GET -> http://localhost:8080/product/
+2. POST -> http://localhost:8080/product/add
+{
+    "productName" : "Lamp",
+    "shortDescription" : "Ancient Lamp Stand",
+    "detailedDescription" : "Used for lightening up the area",
+    "category" : "PAINTING",
+    "startingPrice" : 1000,
+    "bidEndDate" : "2022-08-22",
+    "sellerId" : "62af4c733c341260c2fcea2b"
+}
