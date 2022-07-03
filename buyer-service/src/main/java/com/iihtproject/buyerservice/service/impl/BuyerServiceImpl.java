@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +21,9 @@ import java.util.Optional;
 @Service
 public class BuyerServiceImpl implements BuyerService {
 
+    private static final String URL="http://localhost:9000/e-auction/api/v1/seller/find-product/";
+    @Autowired
+    RestTemplate restTemplate;
     @Autowired
     BuyerRepository buyerRepository;
     @Override
@@ -26,6 +31,9 @@ public class BuyerServiceImpl implements BuyerService {
         Optional<BidEntity> optionalBidEntity= buyerRepository.findByBuyerEmail(bidDto.getBuyerEmail());
         if(optionalBidEntity.isPresent()){
             throw new CustomException("A Buyer has already place the Bid with Email-ID: "+bidDto.getBuyerEmail());
+        }
+        if(Boolean.FALSE.equals(restTemplate.getForObject(URL + bidDto.getProductId() + "/" + LocalDate.now().toString(), Boolean.class))){
+            throw new CustomException("Bidding is closed for this product ");
         }
         BidEntity bidEntity = new BidEntity();
         BeanUtils.copyProperties(bidDto,bidEntity);
@@ -36,10 +44,9 @@ public class BuyerServiceImpl implements BuyerService {
 
     @Override
     public BidResponse updateBid(String productId, String buyerEmail, Double newBidAmount) {
-//        Criteria criteria = new Criteria();
-//        criteria.andOperator(Criteria.where("productId").is(bidDto.getProductId()),
-//                Criteria.where("buyerEmail").is(bidDto.getBuyerEmail()));
-//        Query query = new Query(criteria);
+        if(Boolean.FALSE.equals(restTemplate.getForObject(URL + productId + "/" + LocalDate.now().toString(), Boolean.class))){
+            throw new CustomException("Bidding is closed for this product");
+        }
         BidEntity bidEntity = buyerRepository.findByProductIdAndBuyerEmail(productId, buyerEmail);
         bidEntity.setBidAmount(newBidAmount);
         BidResponse bidResponse = new BidResponse();

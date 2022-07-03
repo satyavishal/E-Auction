@@ -14,7 +14,7 @@ import java.util.List;
 
 @Controller
 @RestController
-@RequestMapping("/buyer")
+@RequestMapping("/e-auction/api/v1/buyer")
 public class BuyerController {
 
     @Autowired

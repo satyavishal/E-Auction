@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.validation.Valid;
 
 import com.iihtproject.sellerservice.dto.ProductDto;
+import com.iihtproject.sellerservice.response.ProductBidsVO;
 import com.iihtproject.sellerservice.response.ProductResponse;
 
 public interface SellerService {
@@ -13,7 +14,7 @@ public interface SellerService {
     
     boolean deleteProduct(String productId);
 
-	ProductResponse showBids(@Valid String id);
+	ProductBidsVO showBids(@Valid String id);
 
 	boolean findProductByIdAndBidEndDate(@Valid String id, Date date);
 }

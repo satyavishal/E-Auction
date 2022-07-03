@@ -1,6 +1,7 @@
 package com.iihtproject.sellerservice.controller;
 
 import com.iihtproject.sellerservice.dto.ProductDto;
+import com.iihtproject.sellerservice.response.ProductBidsVO;
 import com.iihtproject.sellerservice.response.ProductResponse;
 import com.iihtproject.sellerservice.service.SellerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,24 +32,20 @@ public class SellerController {
         return new ResponseEntity<>(sellerService.addProduct(productDto), HttpStatus.CREATED);
     }
 
-    @GetMapping("show-bids/{productId}")
-    public ResponseEntity<ProductResponse> showBidsForProduct(@Valid @PathVariable("productId") String id){
-    	
-    	ProductResponse response = sellerService.showBids(id);
-    	return new ResponseEntity<>(response, HttpStatus.OK);
-    	
+    @GetMapping("/show-bids/{productId}")
+    public ResponseEntity<ProductBidsVO> showBidsForProduct(@PathVariable("productId") String id){
+    	return new ResponseEntity<>(sellerService.showBids(id), HttpStatus.OK);
     }
     
-    @GetMapping("find-product/{productId}/{bidEndDate}")
-    public ResponseEntity<Boolean> findProductByIdAndBidEndDate(@Valid @PathVariable("productId")String id, @PathVariable("bidEndDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date){
-    	boolean response = sellerService.findProductByIdAndBidEndDate(id,date);
-    	return new ResponseEntity<>(response, HttpStatus.OK);
+    @GetMapping("/find-product/{productId}/{bidEndDate}")
+    public ResponseEntity<Boolean> findProductByIdAndBidEndDate(@PathVariable("productId")String id, @PathVariable("bidEndDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date){
+    	return new ResponseEntity<>(sellerService.findProductByIdAndBidEndDate(id,date), HttpStatus.OK);
 
     }
+    @PostMapping("/addBids/{productId}")
     
     @DeleteMapping("/delete/{productId}")
     public ResponseEntity<Boolean> deleteProduct(@PathVariable("productId") String productId) {
-        boolean deleted = sellerService.deleteProduct(productId);
-        return new ResponseEntity<>(deleted, HttpStatus.OK);
+        return new ResponseEntity<>(sellerService.deleteProduct(productId), HttpStatus.OK);
     }
 }

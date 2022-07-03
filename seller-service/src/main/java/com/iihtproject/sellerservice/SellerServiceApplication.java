@@ -16,8 +16,7 @@ public class SellerServiceApplication {
     }
 
     @Bean
-    @LoadBalanced
-    public RestTemplate restTemplate(){
+    public RestTemplate getRestTemplate(){
         return new RestTemplate();
     }
 }

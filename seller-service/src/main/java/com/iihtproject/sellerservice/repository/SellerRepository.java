@@ -12,6 +12,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SellerRepository extends MongoRepository<ProductEntity, String> {
-
-	Optional<ProductEntity> findByIdAndBidEndDateLessThan(@Valid String id, Date date);
+    Optional<ProductEntity> findByIdAndBidEndDateGreaterThan(@Valid String id, Date date);
 }

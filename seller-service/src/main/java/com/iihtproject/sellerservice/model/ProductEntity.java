@@ -57,5 +57,5 @@ public class ProductEntity {
     private String sellerEmail;
     
     //When buyer uncomment
-    //List<Bids> bidList;
+//    List<Bids> bidList;
 }
