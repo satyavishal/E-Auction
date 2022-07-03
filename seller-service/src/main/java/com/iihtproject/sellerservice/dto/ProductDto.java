@@ -9,20 +9,20 @@ import javax.validation.constraints.*;
 import java.util.Date;
 
 @Data
-@AllArgsConstructor(staticName = "build")
-@NoArgsConstructor
+//@AllArgsConstructor(staticName = "build")
+//@NoArgsConstructor
 public class ProductDto {
 
     // Product Details
     @NotNull
     @Size(min = 5, max = 30)
-    @Schema(type = "string", example = "Lamp Stand")
+    @Schema(type = "string")
     private String productName;
 
-    @Schema(type = "string", example = "Ancient Lamp Stand")
+    @Schema(type = "string")
     private String shortDescription;
 
-    @Schema(type = "string", example = "Used for lightening up the area")
+    @Schema(type = "string")
     private String detailedDescription;
     
     @EnumValueValidator(enumClass = ProductCategory.class, message = "Must be a Valid Product Category")
@@ -40,33 +40,33 @@ public class ProductDto {
     // Seller Details
     @NotNull
     @Size(min = 5, max = 30)
-    @Schema(type = "string", example = "Satya")
+    @Schema(type = "string")
     private String sellerFirstName;
 
     @NotNull
     @Size(min = 5, max = 30)
-    @Schema(type = "string", example = "Thota")
+    @Schema(type = "string")
     private String sellerLastName;
 
-    @Schema(type = "string", example = "B-6, Pradama Palace")
+    @Schema(type = "string")
     private String sellerAddress;
 
-    @Schema(type = "string", example = "Visakhapatnam")
+    @Schema(type = "string")
     private String sellerCity;
 
-    @Schema(type = "string", example = "Andhra Pradesh")
+    @Schema(type = "string")
     private String sellerState;
 
-    @Schema(type = "string", example = "530068")
+    @Schema(type = "string")
     private String sellerPinCode;
 
     @NotNull
     @Size(min = 10, max = 10)
-    @Schema(type = "string", example = "9492860779")
+    @Schema(type = "string")
     private String sellerPhone;
 
     @NotNull
     @Email
-    @Schema( type = "string", example = "satya.thota@gmail.com")
+    @Schema( type = "string")
     private String sellerEmail;
 }
