@@ -55,4 +55,7 @@ public class ProductEntity {
 
     @Field
     private String sellerEmail;
+    
+    //When buyer uncomment
+//    List<Bids> bidList;
 }

@@ -1,4 +1,4 @@
-package com.iihtproject.sellerservice;
+package com.iihtproject.buyerservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,14 +9,14 @@ import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 @EnableEurekaClient
-public class SellerServiceApplication {
+public class BuyerServiceApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(SellerServiceApplication.class, args);
-    }
+	public static void main(String[] args) {
+		SpringApplication.run(BuyerServiceApplication.class, args);
+	}
 
-    @Bean
-    public RestTemplate getRestTemplate(){
-        return new RestTemplate();
-    }
+	@Bean
+	public RestTemplate getRestTemplate(){
+		return new RestTemplate();
+	}
 }
